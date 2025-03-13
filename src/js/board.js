@@ -40,7 +40,7 @@ export function setupBoard() {
 	}, 1000);
 
 }
-
+//         
 let board = [
 	["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], // Black major pieces
 	["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"], // Black pawns
@@ -64,12 +64,18 @@ export function handleClicks(e) {
 		console.log("Selected Piece");
 		selectedPiece = [row,column,piece,color];
 		moves = getPossibleMoves(piece, row, column, color, board);
-		highLightMoves(moves);
-		return;
+		console.log(Boolean(moves));
+		if(moves){
+			highLightMoves(moves);
+		}
 	}
 	//Moving the selected piece
-	let isValidMove = moves.some((move) =>String(move)===`${row}${column}`);
-	console.log(isValidMove);
+	let isValidMove;
+	if(moves){
+
+		isValidMove = moves.some((move) =>String(move)===`${row}${column}`);
+		console.log(Boolean(isValidMove));
+	}
 
 	if (isValidMove) {
 		console.log("Selected Cell");

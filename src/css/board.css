@@ -11,7 +11,7 @@ body{
 #board {
     display: grid;
     font-size:60px;
-    grid-template-columns: repeat(8,13vmin);
+    grid-template-columns: repeat(8,12vmin);
     grid-template-rows: repeat(8,10vmin);
     width: fit-content;
     height: max-content;
@@ -21,15 +21,15 @@ body{
 
 .white{
     background-color: #f0d9b5;
-    height: 11vmin;
-    width: 13vmin;
+    height: 10vmin;
+    width: 12vmin;
     border: 1px solid #101010;
 
 }
 .black{
     background-color: #b58863;
-    height: 11vmin;
-    width: 13vmin;
+    height: 10vmin;
+    width: 12vmin;
     border: 1px solid #101010;
 }
 .cell {

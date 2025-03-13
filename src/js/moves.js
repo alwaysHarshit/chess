@@ -15,7 +15,8 @@ export function getPossibleMoves(piece, row, col, color,board) {
 			break;
 		case "♖":
 		case "♜":
-			return rookMoves(row, col, color,board);
+			moves=rookMoves(row, col, color,board);
+			break;
 		case "♘":
 		case "♞":
 			//return knightMoves(row, col, color, board);
@@ -31,5 +32,6 @@ export function getPossibleMoves(piece, row, col, color,board) {
 		default:
 			return [];
 	}
+	console.log(moves);
 	return moves;
 }

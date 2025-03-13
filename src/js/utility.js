@@ -14,7 +14,7 @@ export function getPieceFromBoard(board, row, col) {
 }
 
 export function makeMove(selectedCell, selectedPiece, board) {
-	console.log(selectedCell, selectedPiece);
+	console.log("From cell:",selectedPiece,"To cell",selectedCell);
 	board[selectedCell[0]][selectedCell[1]] = board[selectedPiece[0]][selectedPiece[1]]
 	board[selectedPiece[0]][selectedPiece[1]] = ""
 	let fromCell = `${selectedPiece[0]}${selectedPiece[1]}`;

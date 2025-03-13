@@ -21,11 +21,12 @@ export function removeMove(previousMove) {
 	previousMoves.length = 0;
 }
 export function highLightMoves(moves) {
+	console.log(moves);
 	moves.forEach((move) => {
 		let cell = document.getElementById(`${move[0]}${move[1]}`);
 		if (cell) {
 			cell.style.backgroundColor = "red";
 		}
 		previousMoves.push(move); // Store new moves
-	});
-};
+	})
+}
