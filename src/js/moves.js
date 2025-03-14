@@ -2,7 +2,7 @@ import { pawnMoves } from "./pieces/pawn.js";
 import { rookMoves } from "./pieces/rook.js";
  import { knightMoves } from "./pieces/knight.js";
  import { bishopMoves } from "./pieces/bishop.js";
-// import { queenMoves } from "./pieces/queen.js";
+ import { queenMoves } from "./pieces/queen.js";
 // import { kingMoves } from "./pieces/king.js";
 
 
@@ -27,7 +27,8 @@ export function getPossibleMoves(piece, row, col, color,board) {
 			break;
 		case "♕":
 		case "♛":
-			//return queenMoves(row, col, color, board);
+			moves= queenMoves(row, col, color, board);
+			break;
 		case "♔":
 		case "♚":
 			//return kingMoves(row, col, color,board);

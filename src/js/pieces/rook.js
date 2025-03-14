@@ -17,13 +17,11 @@ export function rookMoves(row, col, color,board) {
 			break;
 		}
 		moves.push(`${r}${c}`)
-		console.log(r,moves)
 		r--;
 	}
 	
 	//check downward movement(row:0-7)
 	r = row===7?row:row+1;
-	console.log(r)
 	isPieceFound=false
 	while(7>=r && !isPieceFound){
 		if(board[r][c]!==""){
