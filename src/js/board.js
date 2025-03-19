@@ -16,14 +16,14 @@ export function setupBoard() {
 	}
 
 	const initialBoard = [
-		["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], // Black major pieces
+		["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], // Black major rules
 		["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"], // Black pawns
 		["", "", "", "", "", "", "", ""], // Empty rows
 		["", "", "", "", "", "", "", ""], // Empty rows
 		["", "", "", "", "", "", "", ""],
 		["", "", "", "", "", "", "", ""],
 		["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"], // White pawns
-		["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]  // White major pieces
+		["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]  // White major rules
 	];
 
 	setTimeout(() => {
@@ -40,57 +40,69 @@ export function setupBoard() {
 	}, 1000);
 
 }
-//         
-let board = [
-	["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], // Black major pieces
-	["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"], // Black pawns
-	["", "", "", "", "", "", "", ""], // Empty rows
-	["", "", "", "", "", "", "", ""], // Empty rows
-	["", "", "", "", "", "", "", ""],
-	["", "", "", "", "", "", "", ""],
-	["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"], // White pawns
-	["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]  // White major pieces
-];
-let selectedPiece = null;
-let selectedCell = null;
-let moves=null
+
+let gameState = {
+	board: [
+		["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
+		["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"],
+		["", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", ""],
+		["", "", "", "", "", "", "", ""],
+		["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
+		["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]
+	],
+	selectedPiece: null,
+	selectedCell: null,
+	moves: null,
+	turn: "white"
+};
 
 export function handleClicks(e) {
-	let row=parseInt(e.target.id[0]);
-	let column=parseInt(e.target.id[1]);
-	let  {piece, color} = getPieceFromBoard(board,row,column);
-	//selecting piece
-	if(!selectedPiece) {
-		console.log("Selected Piece");
-		selectedPiece = [row,column,piece,color];
-		moves = getPossibleMoves(piece, row, column, color, board);
-		console.log(Boolean(moves));
-		if(moves){
-			highLightMoves(moves);
+	const row = parseInt(e.target.id[0]);
+	const column = parseInt(e.target.id[1]);
+	const { piece, color } = getPieceFromBoard(gameState.board, row, column);
+
+	// Early exit if no piece is clicked and nothing is selected
+	 if (!piece && !gameState.selectedPiece) return;
+
+
+	// Handle move if a piece is already selected
+	if (gameState.selectedPiece) {
+		const isValidMove = gameState.moves?.some(move => String(move) === `${row}${column}`);
+
+		if (isValidMove) {
+			console.log("Moving piece to", `${row}${column}`);
+			makeMove([row, column], gameState.selectedPiece, gameState.board);
+			 gameState.turn = gameState.turn === "white" ? "black" : "white";
+			console.log("Updated board:", gameState.board);
+			resetSelection();
+			return;
 		}
 	}
-	//Moving the selected piece
-	let isValidMove;
-	if(moves){
 
-		isValidMove = moves.some((move) =>String(move)===`${row}${column}`);
-		console.log(Boolean(isValidMove));
+	// Select or reselect a piece if one is clicked
+	if (piece && gameState.turn === color) {
+		console.log("Selected piece at", `${row}${column}`);
+		selectPiece(row, column, piece, color);
 	}
+}
 
-	if (isValidMove) {
-		console.log("Selected Cell");
-		makeMove([row, column], selectedPiece, board);
-		console.log(board);
-		selectedPiece = null;
-		selectedCell = null;
-		moves = null;
-		removeMove();
-		return;
+// Helper function to select a piece and highlight moves
+function selectPiece(row, column, piece, color) {
+	gameState.selectedPiece = [row, column, piece, color];
+	gameState.moves = getPossibleMoves(piece, row, column, color, gameState.board);
+	removeMove(); // Clear previous highlights
+	if (gameState.moves?.length) {
+		highLightMoves(gameState.moves);
 	}
-	//Clicking another piece resets selection
-	selectedPiece = [row, column, piece, color];
-	moves = getPossibleMoves(piece, row, column, color, board);
+}
+
+// Helper function to reset selection after a move
+function resetSelection() {
+	gameState.selectedPiece = null;
+	gameState.selectedCell = null;
+	gameState.moves = null;
 	removeMove();
-	highLightMoves(moves);
 }
 
