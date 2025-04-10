@@ -2,11 +2,19 @@ import {getPossibleMoves} from "./moves.js";
 import {findKing, getCellsBetween, getPieceFromBoard} from "./utility.js";
 import {gameState} from "./board.js";
 
-export function checkForCheck(row, column) {
-
+export function checkForCheck(row, column,color) {
+	console.log("Check check...");
 	const movesThatCanCheck = getPossibleMoves(gameState.selectedPiece.piece, row, column, gameState.turn, gameState.board);
-	const kingPosition = findKing(gameState.turn, gameState.board);
+	
+	/*
+	checking check for opponent color king piece and game state turn have current turn color but we check for opponent
+	player king so switching the color
 
+	 */
+
+	let kingColor = gameState.turn ==="black"?"white":"black";
+	const kingPosition = findKing(kingColor, gameState.board);
+	
 	let check = movesThatCanCheck.some(move => move === kingPosition[0]);
 	if (check) {
 		gameState.Checkmate.isCheck = true;

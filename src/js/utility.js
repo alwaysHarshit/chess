@@ -24,8 +24,8 @@ export function makeMove(selectedCell, selectedPiece, board) {
 	removeMove();
 }
 
-export function findKing(turn, board) {
-	const kingSymbol = turn !== "white" ? "♔" : "♚";
+export function findKing(color, board) {
+	const kingSymbol = color === "white" ? "♔" : "♚";
 	for (let r = 0; r < 8; r++) {
 		for (let c = 0; c < 8; c++) {
 			if (board[r][c] === kingSymbol) {
