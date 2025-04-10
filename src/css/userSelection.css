@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #0a0e17;
+    color: #ffffff;
+}
+
+.card {
+    width: 350px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 24px;
+}
+
+.player-input {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.player-input label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.king-icon {
+    width: 40px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.white-king {
+    background-color: #f8f8f8;
+    color: #000;
+}
+
+.black-king {
+    background-color: #333;
+    color: #fff;
+}
+
+.player-input input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.play-button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4a7bca;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.play-button:hover {
+    background-color: #3a69b8;
+}
+
+.play-button:active {
+    transform: scale(0.98);
+}

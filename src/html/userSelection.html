@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Player Setup</title>
+    <link rel="stylesheet" href="../css/userSelection.css">
+</head>
+<body>
+<div class="card">
+    <h1 class="card-title">Chess Player Setup</h1>
+
+    <div class="player-input">
+        <label for="player1">Player 1 (White)</label>
+        <div class="input-with-icon">
+            <div class="king-icon white-king">♔</div>
+            <input type="text" id="player1" placeholder="Enter name">
+        </div>
+    </div>
+
+    <div class="player-input">
+        <label for="player2">Player 2 (Black)</label>
+        <div class="input-with-icon">
+            <div class="king-icon black-king">♚</div>
+            <input type="text" id="player2" placeholder="Enter name">
+        </div>
+    </div>
+
+    <button class="play-button" id="startBtn">START</button>
+</div>
+
+<script>
+	document.getElementById('startBtn').addEventListener('click', function() {
+		const player1 = document.getElementById('player1').value || 'Player 1';
+		const player2 = document.getElementById('player2').value || 'Player 2';
+        location.replace(`board.html?player1=${player1}&player2=${player2}`)
+	});
+</script>
+</body>
+</html>

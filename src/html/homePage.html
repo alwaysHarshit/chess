@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumChess | A New Dimension</title>
+    <link rel="stylesheet" href="../css/homePage.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="grid-overlay"></div>
+
+<div class="container">
+    <header>
+        <div class="logo">Chess</div>
+        <nav>
+            <ul>
+                <li><a href="#">Contact us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span style="--i:1">The Future of</span>
+                <span style="--i:2">Chess is Here</span>
+            </h1>
+<!--            <p class="hero-subtitle">Experience chess like never before with our futuristic AI-powered platform. Challenge players worldwide, analyze your games, and improve your skills with cutting-edge technology.</p>-->
+            <div class="cta-container">
+                <button class="btn btn-primary" id="play-btn">Play Now</button>
+                <button class="btn btn-secondary">Learn More</button>
+            </div>
+        </div>
+
+        <div class="chess-visual">
+            <div class="chess-board">
+                <div class="chess-piece">
+                    <svg viewBox="0 0 45 45" fill="#ffffff">
+                        <g stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M 9,26 C 17.5,24.5 30,24.5 36,26 L 38.5,13.5 L 31,25 L 30.7,10.9 L 25.5,24.5 L 22.5,10 L 19.5,24.5 L 14.3,10.9 L 14,25 L 6.5,13.5 L 9,26 z"/>
+                            <path d="M 9,26 C 9,28 10.5,28 11.5,30 C 12.5,31.5 12.5,31 12,33.5 C 10.5,34.5 11,36 11,36 C 9.5,37.5 11,38.5 11,38.5 C 17.5,39.5 27.5,39.5 34,38.5 C 34,38.5 35.5,37.5 34,36 C 34,36 34.5,34.5 33,33.5 C 32.5,31 32.5,31.5 33.5,30 C 34.5,28 36,28 36,26 C 27.5,24.5 17.5,24.5 9,26 z"/>
+                            <path d="M 11.5,30 C 15,29 30,29 33.5,30" fill="none"/>
+                            <path d="M 12,33.5 C 18,32.5 27,32.5 33,33.5" fill="none"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="chess-piece">
+                    <svg viewBox="0 0 45 45" fill="#ffffff">
+                        <g stroke="#000000" stroke-width="1.5" stroke-linejoin="round">
+                            <path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18"/>
+                            <path d="M 24,18 C 24.38,20.91 18.45,25.37 16,27 C 13,29 13.18,31.34 11,31 C 9.958,30.06 12.41,27.96 11,28 C 10,28 11.19,29.23 10,30 C 9,30 5.997,31 6,26 C 6,24 12,14 12,14 C 12,14 13.89,12.1 14,10.5 C 13.27,9.506 13.5,8.5 13.5,7.5 C 14.5,6.5 16.5,10 16.5,10 L 18.5,10 C 18.5,10 19.28,8.008 21,7 C 22,7 22,10 22,10"/>
+                            <path d="M 9.5 25.5 A 0.5 0.5 0 1 1 8.5,25.5 A 0.5 0.5 0 1 1 9.5 25.5 z"/>
+                            <path d="M 15 15.5 A 0.5 1.5 0 1 1 14,15.5 A 0.5 1.5 0 1 1 15 15.5 z" transform="matrix(0.866,0.5,-0.5,0.866,9.693,-5.173)"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="chess-piece">
+                    <svg viewBox="0 0 45 45" fill="#ffffff">
+                        <g stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M 9 13 A 2 2 0 1 1 5,13 A 2 2 0 1 1 9 13 z" transform="translate(-1,-1)"/>
+                            <path d="M 9 13 A 2 2 0 1 1 5,13 A 2 2 0 1 1 9 13 z" transform="translate(15.5,-5.5)"/>
+                            <path d="M 9 13 A 2 2 0 1 1 5,13 A 2 2 0 1 1 9 13 z" transform="translate(32,-1)"/>
+                            <path d="M 9 13 A 2 2 0 1 1 5,13 A 2 2 0 1 1 9 13 z" transform="translate(7,-4)"/>
+                            <path d="M 9 13 A 2 2 0 1 1 5,13 A 2 2 0 1 1 9 13 z" transform="translate(24,-4)"/>
+                            <path d="M 9,26 C 17.5,24.5 27.5,24.5 36,26 L 38,14 L 31,25 L 31,11 L 25.5,24.5 L 22.5,9.5 L 19.5,24.5 L 14,11 L 14,25 L 7,14 L 9,26 z" stroke-linecap="butt"/>
+                            <path d="M 9,26 C 9,28 10.5,28 11.5,30 C 12.5,31.5 12.5,31 12,33.5 C 10.5,34.5 11,36 11,36 C 9.5,37.5 11,38.5 11,38.5 C 17.5,39.5 27.5,39.5 34,38.5 C 34,38.5 35.5,37.5 34,36 C 34,36 34.5,34.5 33,33.5 C 32.5,31 32.5,31.5 33.5,30 C 34.5,28 36,28 36,26 C 27.5,24.5 17.5,24.5 9,26 z"/>
+                            <path d="M 11.5,30 C 15,29 30,29 33.5,30" fill="none"/>
+                            <path d="M 12,33.5 C 18,32.5 27,32.5 33,33.5" fill="none"/>
+                            <path d="M 11,36 C 17,35 27,35 34,36" fill="none"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="chess-piece">
+                    <svg viewBox="0 0 45 45" fill="#ffffff">
+                        <g stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M 22.5,11.63 L 22.5,6"/>
+                            <path d="M 20,8 L 25,8"/>
+                            <path d="M 22.5,25 C 22.5,25 27,17.5 25.5,14.5 C 25.5,14.5 24.5,12 22.5,12 C 20.5,12 19.5,14.5 19.5,14.5 C 18,17.5 22.5,25 22.5,25"/>
+                            <path d="M 12.5,37 C 18,40.5 27,40.5 32.5,37 L 32.5,30 C 32.5,30 41.5,25.5 38.5,19.5 C 34.5,13 25,16 22.5,23.5 L 22.5,27 L 22.5,23.5 C 20,16 10.5,13 6.5,19.5 C 3.5,25.5 12.5,30 12.5,30 L 12.5,37"/>
+                            <path d="M 12.5,30 C 18,27 27,27 32.5,30"/>
+                            <path d="M 12.5,33.5 C 18,30.5 27,30.5 32.5,33.5"/>
+                            <path d="M 12.5,37 C 18,34 27,34 32.5,37"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="chess-piece">
+                    <svg viewBox="0 0 45 45" fill="#ffffff">
+                        <g stroke="#000000" stroke-width="1.5" stroke-linejoin="round">
+                            <path d="M 9,39 L 36,39 L 36,36 L 9,36 L 9,39 z"/>
+                            <path d="M 12.5,32 L 14,29.5 L 31,29.5 L 32.5,32 L 12.5,32 z"/>
+                            <path d="M 12,36 L 12,32 L 33,32 L 33,36 L 12,36 z"/>
+                            <path d="M 14,29.5 L 14,16.5 L 31,16.5 L 31,29.5 L 14,29.5 z"/>
+                            <path d="M 14,16.5 L 11,14 L 34,14 L 31,16.5 L 14,16.5 z"/>
+                            <path d="M 11,14 L 11,9 L 15,9 L 15,11 L 20,11 L 20,9 L 25,9 L 25,11 L 30,11 L 30,9 L 34,9 L 34,14 L 11,14 z"/>
+                            <path d="M 12,35.5 L 33,35.5 L 33,35.5" fill="none" stroke="#ffffff"/>
+                            <path d="M 13,31.5 L 32,31.5" fill="none" stroke="#ffffff"/>
+                            <path d="M 14,29.5 L 31,29.5" fill="none" stroke="#ffffff"/>
+                            <path d="M 14,16.5 L 31,16.5" fill="none" stroke="#ffffff"/>
+                            <path d="M 11,14 L 34,14" fill="none" stroke="#ffffff"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="glow"></div>
+<div class="particles" id="particles"></div>
+
+<script>
+	// Create floating particles
+	const particles = document.getElementById('particles');
+	for (let i = 0; i < 50; i++) {
+		const particle = document.createElement('div');
+		particle.classList.add('particle');
+		particle.style.left = `${Math.random() * 100}%`;
+		particle.style.animationDuration = `${Math.random() * 15 + 5}s`;
+		particle.style.animationDelay = `${Math.random() * 5}s`;
+		particles.appendChild(particle);
+	}
+
+	// Mouse glow effect
+	const glow = document.querySelector('.glow');
+	document.addEventListener('mousemove', (e) => {
+		glow.style.left = `${e.clientX - 150}px`;
+		glow.style.top = `${e.clientY - 150}px`;
+		glow.style.opacity = '1';
+	});
+
+	document.addEventListener('mouseout', () => {
+		glow.style.opacity = '0';
+	});
+
+	// Add hover effect to buttons
+	const buttons = document.querySelectorAll('.btn');
+	buttons.forEach(button => {
+		button.addEventListener('mouseenter', () => {
+			button.style.transform = 'translateY(-5px)';
+		});
+
+		button.addEventListener('mouseleave', () => {
+			button.style.transform = 'translateY(0)';
+		});
+	});
+
+	// Add click animation to buttons
+	buttons.forEach(button => {
+		button.addEventListener('click', () => {
+			button.style.transform = 'scale(0.95)';
+			setTimeout(() => {
+				button.style.transform = 'scale(1)';
+			}, 100);
+		});
+	});
+
+	// Logo hover animation
+	const logo = document.querySelector('.logo');
+	logo.addEventListener('mouseenter', () => {
+		logo.style.textShadow = '0 0 10px rgba(100, 255, 218, 0.8)';
+	});
+
+	logo.addEventListener('mouseleave', () => {
+		logo.style.textShadow = 'none';
+	});
+	document.getElementById('play-btn').addEventListener('click', () => {
+		location.replace("userSelection.html");
+    })
+</script>

@@ -1,6 +1,6 @@
 import {getPossibleMoves} from "./moves.js";
 import {findKing, getCellsBetween, getPieceFromBoard} from "./utility.js";
-import {gameState} from "./board.js";
+import {gameState} from "./boardMangement/board.js";
 
 export function checkForCheck(row, column,color) {
 	console.log("Check check...");

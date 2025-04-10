@@ -1,5 +1,5 @@
 body{
-    background-color: #330e2f;
+    background-color: rgb(10, 14, 23);
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -10,14 +10,17 @@ body{
 }
 #board {
     display: grid;
-    font-size:60px;
-    grid-template-columns: repeat(8,12vmin);
-    grid-template-rows: repeat(8,10vmin);
+    font-size: 60px;
+    grid-template-columns: repeat(8, 12vmin);
+    grid-template-rows: repeat(8, 10vmin);
     width: fit-content;
     height: max-content;
-    margin: 10vmin auto;
-    border: 5px solid black;
+    margin: 5vmin auto;
+    padding: 5px; /* Space for border effect */
+    border: 3px solid transparent;
+    border-image: linear-gradient(135deg, rgb(100, 255, 218), rgb(0, 170, 255)) 1;
 }
+
 
 .white{
     background-color: #f0d9b5;
@@ -55,4 +58,36 @@ body{
 }
 .checkmate{
     background-color: #ff0000;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #64ffda, #0af, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+}
+
+.logo::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #64ffda, #0af, #a78bfa);
+    transition: width 0.5s ease-in-out;
+}
+
+.logo:hover::after {
+    width: 100%;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
 }

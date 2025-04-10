@@ -1,5 +1,5 @@
 import {removeMove, updateUi} from "./UI.js";
-import {gameState} from "./board.js";
+import {gameState} from "./boardMangement/board.js";
 
 
 export function getPieceColor(piece) {
