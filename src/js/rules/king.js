@@ -12,14 +12,13 @@ export function kingMoves(row, col, color, board) {
 
 	validMoves.forEach(([r, c]) => {
 		if (board[r][c] !== "") {
-			console.log("A", r, c);
+
 			if (getPieceColor(board[r][c]) !== color) {
 				moves.push(`${r}${c}`);
-				console.log("B", r, c);
+
 			}
 		} else {
 			moves.push(`${r}${c}`);
-			console.log("C", r, c);
 		}
 	});
 

@@ -1,6 +1,15 @@
-import {getPieceFromBoard, makeMove} from "./utility.js";
-import {removeMove,highLightMoves} from "./UI.js";
+import {
+	findKing,
+	getCellsBetween,
+	getPieceColor,
+	getPieceFromBoard,
+	makeMove, removeCheck,
+	resetSelection
+} from "./utility.js";
+import {highLightMoves, removeMove} from "./UI.js";
 import {getPossibleMoves} from "./moves.js";
+import {checkForCheck, filterValidMovesForCheck} from "./check.js";
+
 
 export function setupBoard() {
 	console.log("Setting up chessboard...");
@@ -15,14 +24,11 @@ export function setupBoard() {
 		}
 	}
 
-	const initialBoard = [
-		["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], // Black major rules
+	const initialBoard = [["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], // Black major rules
 		["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"], // Black pawns
 		["", "", "", "", "", "", "", ""], // Empty rows
 		["", "", "", "", "", "", "", ""], // Empty rows
-		["", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", ""],
-		["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"], // White pawns
+		["", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", ""], ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"], // White pawns
 		["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]  // White major rules
 	];
 
@@ -41,68 +47,232 @@ export function setupBoard() {
 
 }
 
-let gameState = {
-	board: [
-		["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"],
-		["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"],
-		["", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", ""],
-		["", "", "", "", "", "", "", ""],
-		["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
-		["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]
-	],
-	selectedPiece: null,
-	selectedCell: null,
+export let gameState = {
+	board: [["♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"], ["♟", "♟", "♟", "♟", "♟", "♟", "♟", "♟"], ["", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", ""], ["", "", "", "", "", "", "", ""], ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"], ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]],
+	selectedPiece: {
+		initialCoordinates: null, finalCoordinates: null, piece: null, color: null,
+	},
 	moves: null,
-	turn: "white"
+	turn: "black",
+	Checkmate: {
+		isCheck: false,
+		kingPosition: [],
+		movesOfCheckmate: [],  // all legal moves that can save king
+		checkingPieces: [],     // pieces putting the king in check
+		possibleMovetoAvoidCheckmate: [], // all possible moves to avoid checkmate
+	}
+
 };
 
 export function handleClicks(e) {
 	const row = parseInt(e.target.id[0]);
 	const column = parseInt(e.target.id[1]);
-	const { piece, color } = getPieceFromBoard(gameState.board, row, column);
+	const {piece, color} = getPieceFromBoard(gameState.board, row, column);
 
-	// Early exit if no piece is clicked and nothing is selected
-	 if (!piece && !gameState.selectedPiece) return;
+	// If clicking on a piece of the same turn, allow reselection
+	if (piece && gameState.selectedPiece.piece && color === gameState.turn) {
+		console.log("Re-selecting piece...");
+		handleSelection(row, column, piece, color);
+		return;
+	}
 
+	// If no piece is selected yet
+	if (!gameState.selectedPiece.piece) {
+		if (piece) {
+			console.log("Selecting piece...");
+			handleSelection(row, column, piece, color);
+		}
+	}
+	// If a piece is selected, try to move
+	else {
+		console.log("Moving piece...");
+		handleMove(row, column);
+	}
+}
 
-	// Handle move if a piece is already selected
-	if (gameState.selectedPiece) {
+function handleSelection(row, column, piece, color) {
+
+	// Only allow the correct turn's player to move
+	if (gameState.turn !== color) {
+		console.log(`It's ${gameState.turn} turn!`);
+		return;
+	}
+
+	gameState.selectedPiece = {
+		initialCoordinates: [row, column], finalCoordinates: null, piece: piece, color: color
+	};
+
+	gameState.moves = getPossibleMoves(piece, row, column, color, gameState.board);
+
+	if (gameState.Checkmate.isCheck) {
+		//let validMoves = filterValidMovesForCheck(gameState.moves,gameState.Checkmate.possibleMovetoAvoidCheckmate,piece, row, column,color);
+		let validMoves = simulatingMove(gameState.moves)
+		if (validMoves.length) {
+			gameState.moves = validMoves;
+			highLightMoves(gameState.moves);
+		} 
+		else {
+			console.log("No valid moves to escape check!");
+		}
+	} 
+	else {
+		if(gameState.selectedPiece.piece ==='♚' || gameState.selectedPiece.piece === '♔'){
+			simulatingMove(gameState.moves);
+		}
+		if (gameState.moves.length) {
+			highLightMoves(gameState.moves);
+		} else {
+			console.log("No valid moves!");
+		}
+	}
+}
+
+function handleMove(row, column) {
 		const isValidMove = gameState.moves?.some(move => String(move) === `${row}${column}`);
 
-		if (isValidMove) {
-			console.log("Moving piece to", `${row}${column}`);
-			makeMove([row, column], gameState.selectedPiece, gameState.board);
-			 gameState.turn = gameState.turn === "white" ? "black" : "white";
-			console.log("Updated board:", gameState.board);
-			resetSelection();
-			return;
+		if (!isValidMove) return; // Ignore invalid moves
+		// Move the piece
+		makeMove([row, column], gameState.selectedPiece.initialCoordinates, gameState.board);
+		if (gameState.Checkmate.isCheck) {
+			console.log(gameState.Checkmate);
+			removeCheck();
+			console.log("Check removed",gameState);
+		}
+		//checking for check
+		let c=checkForCheck(row, column);
+		if(c){
+			if(!iterateOverEveryPieceToGetPossibleMoves()){
+				alert(`check! ${gameState.turn} wins`);
+			}
+			else {
+				console.log("Check, but moves available");
+			}
+		}
+		else{
+			console.log("No check");
+			
+		}
+
+		// Switch turn
+		gameState.turn = gameState.turn === "white" ? "black" : "white";
+
+		// Reset selection
+		resetSelection();
+	}
+
+function iterateOverEveryPieceToGetPossibleMoves() {
+	console.log("Iterating over every piece to get possible moves...");
+
+	let arrayOfMoves = [];
+	let hasLegalMove = false; // ✅ Track if *any* legal move exists (king or not)
+
+	for (let i = 0; i < 8; i++) {
+		for (let j = 0; j < 8; j++) {
+			let piece = gameState.board[i][j];
+			if (piece === "") continue;
+
+			let pieceColor = getPieceColor(piece);
+			if (pieceColor === gameState.turn) continue; // Skip friendly pieces
+
+			// ✅ King case: only check if it has legal moves, don't store them
+			if (piece === "♚" || piece === "♔") {
+				let moves = getPossibleMoves(piece, i, j, pieceColor, gameState.board);
+				for (let moveStr of moves) {
+					const row = parseInt(moveStr[0]);
+					const col = parseInt(moveStr[1]);
+					let isSafe = !gameState.Checkmate.movesOfCheckmate.flat().some(
+						([r, c]) => r === row && c === col
+					);
+					if (isSafe) {
+						hasLegalMove = true;
+						break; // No need to check further
+					}
+				}
+				continue;
+			}
+
+			// ✅ Non-king pieces: collect valid moves and store them
+			const moves = getPossibleMoves(piece, i, j, pieceColor, gameState.board);
+			let allowedMoves = gameState.Checkmate.movesOfCheckmate.flat();
+
+			for (let move of moves) {
+				let row = parseInt(move[0]);
+				let col = parseInt(move[1]);
+
+				let isValid = allowedMoves.some(([r, c]) => r === row && c === col);
+				const isAttacker = gameState.Checkmate.checkingPieces.some(
+					p => p.position[0] === row && p.position[1] === col
+				);
+
+				if (isValid || isAttacker) {
+					arrayOfMoves.push({
+						piece: piece,
+						color: pieceColor,
+						move: move
+					});
+					hasLegalMove = true;
+				}
+			}
 		}
 	}
 
-	// Select or reselect a piece if one is clicked
-	if (piece && gameState.turn === color) {
-		console.log("Selected piece at", `${row}${column}`);
-		selectPiece(row, column, piece, color);
-	}
+	// ✅ Save only non-king moves
+	gameState.Checkmate.possibleMovetoAvoidCheckmate = arrayOfMoves.map(move => move.move);
+	console.log("All possible moves: ", arrayOfMoves);
+	return hasLegalMove;
 }
 
-// Helper function to select a piece and highlight moves
-function selectPiece(row, column, piece, color) {
-	gameState.selectedPiece = [row, column, piece, color];
-	gameState.moves = getPossibleMoves(piece, row, column, color, gameState.board);
-	removeMove(); // Clear previous highlights
-	if (gameState.moves?.length) {
-		highLightMoves(gameState.moves);
-	}
-}
+function simulatingMove(validMoves) {
+	console.log("Simulating moves...", validMoves);
+	const safeMoves = [];
 
-// Helper function to reset selection after a move
-function resetSelection() {
-	gameState.selectedPiece = null;
-	gameState.selectedCell = null;
-	gameState.moves = null;
-	removeMove();
-}
+	validMoves.forEach(move => {
+		const boardCopy = JSON.parse(JSON.stringify(gameState.board));
 
+		const enemyKingColor = gameState.turn === "white" ? "black" : "white";
+		const kingPosition = findKing(enemyKingColor, boardCopy); // Example: ["34"]
+
+		const kingRow = parseInt(kingPosition[0][0]);
+		const kingCol = parseInt(kingPosition[0][1]);
+
+		const [targetRow, targetCol] = move.split("").map(Number);
+
+		// Move the king on the copied board
+		boardCopy[targetRow][targetCol] = boardCopy[kingRow][kingCol];
+		boardCopy[kingRow][kingCol] = "";
+
+		let isKingInCheck = false;
+
+		// Check if any enemy piece can attack the new king position
+		for (let row = 0; row < 8; row++) {
+			for (let col = 0; col < 8; col++) {
+				const piece = boardCopy[row][col];
+				if (piece === "") continue;
+
+				const pieceColor = getPieceColor(piece);
+				if (pieceColor === gameState.turn) continue; // Skip friendly pieces
+
+				const possibleMoves = getPossibleMoves(piece, row, col, pieceColor, boardCopy);
+
+				const checkDetected = possibleMoves.some(possibleMove => {
+					const [moveRow, moveCol] = possibleMove.split("").map(Number);
+					return moveRow === targetRow && moveCol === targetCol;
+				});
+
+				if (checkDetected) {
+					console.log("🛑 Move", move, "would result in check from", piece, "at", row, col);
+					isKingInCheck = true;
+					break;
+				}
+			}
+			if (isKingInCheck) break;
+		}
+
+		if (!isKingInCheck) {
+			safeMoves.push(move);
+		}
+	});
+
+	console.log("✅ Safe moves:", safeMoves);
+	return safeMoves;
+}

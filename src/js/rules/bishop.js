@@ -14,7 +14,6 @@ export function bishopMoves(row, col, color,board) {
 			break;
 		}
 		moves.push(`${r}${c}`)
-		console.log(r,moves)
 		r--;
 		c--;
 	}
@@ -24,9 +23,7 @@ export function bishopMoves(row, col, color,board) {
 	isPieceFound=false
 	while(7>=r && r>=0  && !isPieceFound){
 		if(board[r][c]!==""){
-			console.log("jello")
 			if(getPieceColor(board[r][c])!== color){
-				console.log("kello")
 				moves.push(`${r}${c}`);
 				isPieceFound=true;
 			}

@@ -40,7 +40,8 @@ body{
     cursor: pointer;
 }
 .cell:hover {
-    background-color: #53aedd;
+    //background-color: #53aedd;
+    background-color: #5ddf42;
 }
 @keyframes fadeIn {
     from {
@@ -51,4 +52,7 @@ body{
         opacity: 1;
         transform: scale(1);
     }
+}
+.checkmate{
+    background-color: #ff0000;
 }

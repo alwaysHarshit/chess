@@ -17,15 +17,13 @@ export function knightMoves(row,col,color,board){
 		let row=move[0];
 		let col=move[1];
 		if(board[row][col]!==""){
-			console.log("A",row, col);
+			
 			if(getPieceColor(board[row][col]) !== color){
 				moves.push(`${row}${col}`);
-				console.log("B",row, col);
 			}
 		}
 		else {
 			moves.push(`${row}${col}`);
-			console.log("C",row, col);
 		}
 
 	})

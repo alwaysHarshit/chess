@@ -1,7 +1,6 @@
 import { getPieceFromBoard} from "../utility.js";
 
 export const pawnMoves = (row, col, color,board) => {
-	console.log(row, col, color, board);
 	let moves=[];
 	let start=color==="white"?6:1;
 	let end= color==="white"?0:7;
