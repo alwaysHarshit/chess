@@ -1,5 +1,5 @@
-import {handleClicks} from "./js/boardMangement/board.js";
-import {setupBoard} from "./js/boardMangement/setupBoard.js";
+import {handleClicks} from "./boardMangement/board.js";
+import {setupBoard} from "./boardMangement/setupBoard.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	setupBoard();

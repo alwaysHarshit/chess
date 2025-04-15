@@ -10,7 +10,7 @@ export let gameState = {
 		initialCoordinates: null, finalCoordinates: null, piece: null, color: null,
 	},
 	moves: null,
-	turn: "black",
+	turn: "white",
 	Checkmate: {
 		isCheck: false, kingPosition: [], movesOfCheckmate: [],  // all legal moves that can save king
 		checkingPieces: [],     // pieces putting the king in check

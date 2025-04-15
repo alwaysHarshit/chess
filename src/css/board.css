@@ -1,3 +1,184 @@
+/*body {*/
+/*    background-color: rgb(10, 14, 23);*/
+/*    font-family: 'Arial', sans-serif;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    color: #fff;*/
+/*}*/
+
+/*.container {*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+/*.info {*/
+/*    border: 10px solid #101010;*/
+/*    height: 10vmin;*/
+/*}*/
+
+/*#board {*/
+/*    display: grid;*/
+/*    font-size: 60px;*/
+/*    grid-template-columns: repeat(8, 12vmin);*/
+/*    grid-template-rows: repeat(8, 10vmin);*/
+/*    width: fit-content;*/
+/*    height: max-content;*/
+/*    margin: 1vmin 0;*/
+/*    padding: 2px;*/
+/*    border: 5px solid transparent;*/
+/*    border-image: linear-gradient(135deg, rgb(100, 255, 218), rgb(0, 170, 255)) 1;*/
+/*}*/
+
+/*!* Keep original chess square colors *!*/
+/*.white {*/
+/*    background-color: #f0d9b5;*/
+/*    height: 10vmin;*/
+/*    width: 12vmin;*/
+/*    border: 1px solid #101010;*/
+/*}*/
+
+/*.black {*/
+/*    background-color: #b58863;*/
+/*    height: 10vmin;*/
+/*    width: 12vmin;*/
+/*    border: 1px solid #101010;*/
+/*}*/
+
+/*.cell {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    opacity: 0;*/
+/*    animation: fadeIn 0.3s forwards;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*!* Preserve original hover effect but only for background *!*/
+/*.cell:hover {*/
+/*    background-color: #5ddf42;*/
+/*}*/
+
+/*!* Ensure pieces maintain their original colors when hovering *!*/
+/*.cell:hover > * {*/
+/*    color: inherit;*/
+/*}*/
+
+/*@keyframes fadeIn {*/
+/*    from {*/
+/*        opacity: 0;*/
+/*        transform: scale(0.8);*/
+/*    }*/
+/*    to {*/
+/*        opacity: 1;*/
+/*        transform: scale(1);*/
+/*    }*/
+/*}*/
+
+/*.checkmate {*/
+/*    background-color: #ff0000;*/
+/*}*/
+
+/*.logo {*/
+/*    font-size: 1.8rem;*/
+/*    font-weight: 700;*/
+/*    letter-spacing: 1px;*/
+/*    background: linear-gradient(90deg, #64ffda, #0af, #a78bfa);*/
+/*    -webkit-background-clip: text;*/
+/*    background-clip: text;*/
+/*    color: transparent;*/
+/*    position: relative;*/
+/*}*/
+
+/*.logo::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    bottom: -5px;*/
+/*    left: 0;*/
+/*    width: 0;*/
+/*    height: 2px;*/
+/*    background: linear-gradient(90deg, #64ffda, #0af, #a78bfa);*/
+/*    transition: width 0.5s ease-in-out;*/
+/*}*/
+
+/*.logo:hover::after {*/
+/*    width: 100%;*/
+/*}*/
+
+/*header {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    padding: 1rem;*/
+/*}*/
+
+/*.game-container {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: center;*/
+/*    gap: 2rem;*/
+/*    min-height: 85vh;*/
+/*    padding: 1rem;*/
+/*    background-color: rgb(20, 24, 33);*/
+/*    border-radius: 8px;*/
+/*}*/
+
+/*.dashboard {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-between;*/
+/*    padding: 2rem;*/
+/*    background: linear-gradient(135deg, rgba(25, 29, 40, 0.8), rgba(30, 35, 50, 0.8));*/
+/*    color: #fff;*/
+/*    border-radius: 8px;*/
+/*    width: 300px;*/
+/*    border: 2px solid;*/
+/*    border-image: linear-gradient(135deg, rgb(100, 255, 218), rgb(0, 170, 255)) 1;*/
+/*}*/
+
+/*.game-info {*/
+/*    margin-bottom: 2rem;*/
+/*}*/
+
+/*.game-info h2 {*/
+/*    color: #64ffda;*/
+/*    margin-bottom: 1.5rem;*/
+/*    border-bottom: 1px solid #0af;*/
+/*    padding-bottom: 0.5rem;*/
+/*}*/
+
+/*.controls {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 1rem;*/
+/*}*/
+
+/*button {*/
+/*    padding: 0.8rem 1.5rem;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    background: linear-gradient(90deg, #64ffda, #0af);*/
+/*    color: #101010;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    transition: all 0.3s ease;*/
+/*}*/
+
+/*button:hover {*/
+/*    transform: translateY(-2px);*/
+/*    box-shadow: 0 4px 12px rgba(0, 170, 255, 0.5);*/
+/*}*/
+
+/*#save-game, #exit-game {*/
+/*    margin-top: 0.5rem;*/
+/*}*/
+
+/*#exit-game {*/
+/*    background: linear-gradient(90deg, #ff6464, #ff0055);*/
+/*}*/
+
+/*#exit-game:hover {*/
+/*    box-shadow: 0 4px 12px rgba(255, 0, 85, 0.5);*/
+/*}*/
 body{
     background-color: rgb(10, 14, 23);
     font-family: 'Arial', sans-serif;
@@ -9,15 +190,16 @@ body{
     height: 10vmin;
 }
 #board {
-    display: grid;
+    display: grid
+;
     font-size: 60px;
     grid-template-columns: repeat(8, 12vmin);
     grid-template-rows: repeat(8, 10vmin);
     width: fit-content;
     height: max-content;
-    margin: 5vmin auto;
-    padding: 5px; /* Space for border effect */
-    border: 3px solid transparent;
+    margin: 1vmin auto;
+    padding: 2px;
+    border: 5px solid transparent;
     border-image: linear-gradient(135deg, rgb(100, 255, 218), rgb(0, 170, 255)) 1;
 }
 
@@ -43,7 +225,7 @@ body{
     cursor: pointer;
 }
 .cell:hover {
-    //background-color: #53aedd;
+//background-color: #53aedd;
     background-color: #5ddf42;
 }
 @keyframes fadeIn {
@@ -90,4 +272,21 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+}
+
+
+.game-container{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    height: 100vh;
+    background-color: #101010;
+}
+.dashboard{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f60808;
+    color: #fff;
 }

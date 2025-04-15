@@ -1,19 +1,124 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Chess Game</title>-->
+<!--    <link href="../css/board.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <header>-->
+<!--        <div class="logo">Chess</div>-->
+<!--    </header>-->
+<!--    <main>-->
+<!--        <div class="game-container">-->
+<!--            <div id="board"></div>-->
+<!--        </div>-->
+<!--    </main>-->
+<!--</div>-->
+<!--<script src="../js/index.js" type="module"></script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chess boardGeneration</title>
+    <title>Chess Game</title>
     <link href="../css/board.css" rel="stylesheet">
+    <style>
+        .exit-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            padding: 8px 14px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .popup {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .popup button {
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <header>
         <div class="logo">Chess</div>
+        <button class="exit-button" onclick="exitGame()">Exit</button>
     </header>
     <main>
+        <div class="game-container">
             <div id="board"></div>
+        </div>
     </main>
 </div>
+
+<!-- Turn Popup -->
+<div class="popup-overlay" id="turn-popup" style="display: none" >
+    <div class="popup" id="popup"  >
+        <div id="popup-text">White's Turn</div>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<script type="module" src="../js/index.js"></script>
+<script>
+	const currentTurn = 'white';
+	document.getElementById('popup-text').textContent = `${capitalize(currentTurn)}'s Turn`;
+
+function enablePopup() {
+        setTimeout(function () {
+			document.getElementById('turn-popup').style.display = 'flex';
+        }, 2700);
+    }
+
+	function closePopup() {
+		document.getElementById('turn-popup').style.display = 'none';
+	}
+
+	function capitalize(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	}
+
+	function exitGame() {
+		if (confirm("Are you sure you want to exit the game?")) {
+			location.replace("../index.html");
+		}
+	}
+	enablePopup();
+
+</script>
 </body>
-<script src="../index.js" type="module"></script>
 </html>
